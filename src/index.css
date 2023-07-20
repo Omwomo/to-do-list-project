@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: bisque;
+  background-color: rgb(83, 144, 185);
 }
 
 .container {
@@ -20,7 +20,9 @@ li {
   justify-content: space-between;
   align-items: center;
   padding: 8px 0;
-  border-bottom: 1px solid #ccc;
+  border: 1px solid #000;
+  margin-bottom: 1rem;
+  border-radius: 3rem;
 }
 
 input[type="checkbox"] {
@@ -33,10 +35,15 @@ input[type="checkbox"] {
   padding-top: 10px;
 }
 
-li.completed span {
+li.completed span.description {
   text-decoration: line-through;
   font-style: italic;
-  color: #ccc;
+  color: #bbb;
+}
+
+span.description {
+  width: 70%;
+  overflow-wrap: break-word;
 }
 
 .edit-input {
@@ -51,6 +58,7 @@ li.completed span {
 }
 
 .edit-icon {
-  margin-right: 8px;
+  display: flex;
+  justify-content: flex-end;
   cursor: pointer;
 }

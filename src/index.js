@@ -1,17 +1,5 @@
-import _ from 'lodash';
+// import _ from 'lodash';
 import './index.css';
-
-function component() {
-  const element = document.createElement('div');
-
-  // Lodash, now imported by this script
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  element.classList.add('hello');
-
-  return element;
-}
-
-document.body.appendChild(component());
 
 // index.js
 const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -41,7 +29,7 @@ function renderTasks() {
     });
 
     const descriptionSpan = document.createElement('span');
-    descriptionSpan.classList.add('description'); // Add class for the description span
+    descriptionSpan.classList.add('description');
     descriptionSpan.textContent = task.description;
 
     // Create the edit icon
@@ -56,8 +44,9 @@ function renderTasks() {
     inputElement.classList.add('edit-input');
     inputElement.style.display = 'none';
 
-    const removeButton = document.createElement('button');
-    removeButton.textContent = 'Remove';
+    const removeButton = document.createElement('span');
+    removeButton.textContent = '🗑️';
+    removeButton.classList.add('remove-btn');
     // eslint-disable-next-line no-use-before-define
     removeButton.addEventListener('click', () => removeTask(task.index));
 
