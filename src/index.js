@@ -77,11 +77,18 @@ function addTask(description) {
   renderTasks();
 }
 
+function updateTaskIndexes() {
+  tasks.forEach((task, index) => {
+    task.index = index + 1;
+  });
+}
+
 // Function to remove a task
 function removeTask(index) {
   const taskIndex = tasks.findIndex((task) => task.index === index);
   if (taskIndex !== -1) {
     tasks.splice(taskIndex, 1);
+    updateTaskIndexes();
     renderTasks();
   }
 }
