@@ -1,5 +1,6 @@
 // import _ from 'lodash';
 import './index.css';
+// import trash from './trash-can-solid.svg';
 
 // index.js
 const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -45,7 +46,7 @@ function renderTasks() {
     inputElement.style.display = 'none';
 
     const removeButton = document.createElement('span');
-    removeButton.textContent = '🗑️';
+    removeButton.innerHTML = '🗑️';
     removeButton.classList.add('remove-btn');
     // eslint-disable-next-line no-use-before-define
     removeButton.addEventListener('click', () => removeTask(task.index));
@@ -107,6 +108,13 @@ function editTask(index) {
     // Save changes when the input loses focus
     // eslint-disable-next-line no-use-before-define
     inputElement.addEventListener('blur', () => saveChanges(index));
+
+    inputElement.addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') {
+        // eslint-disable-next-line no-use-before-define
+        saveChanges(index);
+      }
+    });
   }
 }
 

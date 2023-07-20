@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: rgb(83, 144, 185);
+  /* background-color: rgb(83, 144, 185); */
 }
 
 .container {
@@ -44,6 +44,10 @@ li.completed span.description {
 span.description {
   width: 70%;
   overflow-wrap: break-word;
+}
+
+.remove-btn {
+  color: #128465;
 }
 
 .edit-input {
