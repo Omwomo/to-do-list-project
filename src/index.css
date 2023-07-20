@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  /* background-color: rgb(83, 144, 185); */
+  background-color: rgb(83, 144, 185);
 }
 
 .container {
@@ -35,15 +35,15 @@ input[type="checkbox"] {
   padding-top: 10px;
 }
 
+span.description {
+  width: 70%;
+  overflow-wrap: break-word;
+}
+
 li.completed span.description {
   text-decoration: line-through;
   font-style: italic;
   color: #bbb;
-}
-
-span.description {
-  width: 70%;
-  overflow-wrap: break-word;
 }
 
 .remove-btn {
