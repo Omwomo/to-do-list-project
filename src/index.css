@@ -31,3 +31,20 @@ input[type="checkbox"] {
   justify-content: flex-end;
   padding-top: 10px;
 }
+
+li.completed span {
+  text-decoration: line-through;
+  font-style: italic;
+  color: #ccc;
+}
+
+.edit-input {
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 2px;
+  margin: 0;
+  background-color: transparent;
+  border-bottom: 1px solid #000;
+  width: 100%;
+}
