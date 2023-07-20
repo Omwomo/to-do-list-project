@@ -95,13 +95,13 @@ li.completed span.description {
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: 2px solid #ff0000; /* Change the color code to your desired border color */
-  background-color: rgb(28, 29, 107); /* Change the background color as needed */
+  border: 2px solid #ff00;
+  background-color: rgb(28, 29, 107);
 }
 
 /* Show the checkmark when the checkbox is checked */
 .checkbox:checked + .checkbox-container::before {
-  background-color: #ff0000; /* Change the background color to your desired checked color */
+  background-color: #ff00;
 }
 
 /* Hide the default checkmark */
