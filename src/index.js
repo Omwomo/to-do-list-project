@@ -22,7 +22,6 @@ const addButton = document.getElementById('addButton');
 // const clearCompletedButton = document.getElementById('clearCompletedButton');
 
 // Function to render the tasks list
-// Function to render the tasks list
 function renderTasks() {
   taskList.innerHTML = '';
 
@@ -81,6 +80,7 @@ function addTask(description) {
   renderTasks();
 }
 
+// Function for updating the indexes.
 function updateTaskIndexes() {
   tasks.forEach((task, index) => {
     task.index = index + 1;
