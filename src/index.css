@@ -1,13 +1,15 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: rgb(83, 144, 185);
+  font-family: monospace;
+  background-color: rgb(162, 199, 224);
 }
 
 .container {
-  max-width: 400px;
+  max-width: 20rem;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
+  background-color: rgb(67, 68, 165);
+  border-radius: 3rem;
 }
 
 ul {
@@ -23,6 +25,10 @@ li {
   border: 1px solid #000;
   margin-bottom: 1rem;
   border-radius: 3rem;
+  background-color: rgb(28, 29, 107);
+  color: #bbb;
+  line-height: 1.5rem;
+  font-size: 1.1rem;
 }
 
 input[type="checkbox"] {
@@ -53,7 +59,7 @@ li.completed span.description {
 .edit-input {
   border: none;
   outline: none;
-  font-size: 16px;
+  font-size: 1.5rem;
   padding: 2px;
   margin: 0;
   background-color: transparent;
@@ -65,4 +71,48 @@ li.completed span.description {
   display: flex;
   justify-content: flex-end;
   cursor: pointer;
+}
+
+/* Hide the default checkbox */
+.checkbox {
+  position: absolute;
+  opacity: 0;
+}
+
+/* Style the custom checkbox */
+.checkbox-container {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+/* Create a custom checkbox appearance using a pseudo-element */
+.checkbox-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ff0000; /* Change the color code to your desired border color */
+  background-color: rgb(28, 29, 107); /* Change the background color as needed */
+}
+
+/* Show the checkmark when the checkbox is checked */
+.checkbox:checked + .checkbox-container::before {
+  background-color: #ff0000; /* Change the background color to your desired checked color */
+}
+
+/* Hide the default checkmark */
+.checkbox:checked + .checkbox-container::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff; /* Match the background color of the checkbox */
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
