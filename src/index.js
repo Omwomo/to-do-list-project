@@ -70,5 +70,12 @@ function renderTasks() {
   localStorage.setItem('tasks', JSON.stringify(tasks));
 }
 
+// Function to add a new task
+function addTask(description) {
+  const index = tasks.length > 0 ? tasks[tasks.length - 1].index + 1 : 1;
+  tasks.push({ description, completed: false, index });
+  renderTasks();
+}
+
 // Initial rendering of the tasks
 renderTasks();
