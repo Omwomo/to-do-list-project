@@ -102,4 +102,16 @@ function clearCompletedTasks() {
   renderTasks();
 }
 
+// Event listener for the add button
+addButton.addEventListener('click', () => {
+  const newTaskDescription = newTaskInput.value.trim();
+  if (newTaskDescription) {
+    addTask(newTaskDescription);
+    newTaskInput.value = '';
+  }
+});
+
+// Event listener for the clear completed button
+clearCompletedButton.addEventListener('click', clearCompletedTasks);
+// Initial rendering of the tasks
 renderTasks();
