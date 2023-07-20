@@ -14,13 +14,14 @@ function component() {
 document.body.appendChild(component());
 
 // index.js
-let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
 const taskList = document.getElementById('taskList');
 const newTaskInput = document.getElementById('newTaskInput');
 const addButton = document.getElementById('addButton');
-const clearCompletedButton = document.getElementById('clearCompletedButton');
+// const clearCompletedButton = document.getElementById('clearCompletedButton');
 
+// Function to render the tasks list
 // Function to render the tasks list
 function renderTasks() {
   taskList.innerHTML = '';
@@ -29,6 +30,7 @@ function renderTasks() {
 
   tasks.forEach((task) => {
     const listItem = document.createElement('li');
+    listItem.id = `taskList-${task.index}`; // Set the correct id for each list item
     listItem.classList.toggle('completed', task.completed);
 
     const checkbox = document.createElement('input');
@@ -42,17 +44,18 @@ function renderTasks() {
     const descriptionSpan = document.createElement('span');
     descriptionSpan.classList.add('description'); // Add class for the description span
     descriptionSpan.textContent = task.description;
+
+    // Create the edit icon
+    const editIcon = document.createElement('span');
+    editIcon.classList.add('edit-icon');
+    editIcon.textContent = '✏️';
     // eslint-disable-next-line no-use-before-define
-    // descriptionSpan.addEventListener('click', () => editTask(task.index));
+    editIcon.addEventListener('click', () => editTask(task.index));
 
     const inputElement = document.createElement('input');
     inputElement.type = 'text';
     inputElement.classList.add('edit-input');
     inputElement.style.display = 'none';
-    // eslint-disable-next-line no-use-before-define
-    // inputElement.addEventListener('blur', saveChanges);
-    // eslint-disable-next-line no-use-before-define
-    // inputElement.addEventListener('keypress', handleKeyPress);
 
     const removeButton = document.createElement('button');
     removeButton.textContent = 'Remove';
@@ -61,6 +64,7 @@ function renderTasks() {
 
     listItem.appendChild(checkbox);
     listItem.appendChild(descriptionSpan);
+    listItem.appendChild(editIcon);
     listItem.appendChild(inputElement);
     listItem.appendChild(removeButton);
     taskList.appendChild(listItem);
@@ -93,20 +97,47 @@ function removeTask(index) {
   }
 }
 
-// Function to clear all completed tasks
-function clearCompletedTasks() {
-  // Create a new array with only the uncompleted tasks
-  const uncompletedTasks = tasks.filter((task) => !task.completed);
+// Function to edit a task
+function editTask(index) {
+  const taskIndex = tasks.findIndex((task) => task.index === index);
+  if (taskIndex !== -1) {
+    const listItem = document.getElementById(`taskList-${index}`);
+    const descriptionSpan = listItem.querySelector('.description');
+    const editIcon = listItem.querySelector('.edit-icon');
+    const inputElement = listItem.querySelector('.edit-input');
 
-  // Update the tasks array with uncompletedTasks
-  tasks = uncompletedTasks;
+    // Show the input element and set its value to the task description
+    inputElement.style.display = 'inline-block';
+    inputElement.value = tasks[taskIndex].description;
+    inputElement.focus();
 
-  // Reassign the index values based on the new array's order
-  tasks.forEach((task, index) => {
-    task.index = index + 1;
-  });
+    // Hide the description span and edit icon during editing
+    descriptionSpan.style.display = 'none';
+    editIcon.style.display = 'none';
 
-  renderTasks();
+    // Save changes when the input loses focus
+    // eslint-disable-next-line no-use-before-define
+    inputElement.addEventListener('blur', () => saveChanges(index));
+  }
+}
+
+// Function to save changes when editing a task
+function saveChanges(index) {
+  const taskIndex = tasks.findIndex((task) => task.index === index);
+  if (taskIndex !== -1) {
+    const listItem = document.getElementById(`taskList-${index}`);
+    const descriptionSpan = listItem.querySelector('.description');
+    const editIcon = listItem.querySelector('.edit-icon');
+    const inputElement = listItem.querySelector('.edit-input');
+
+    tasks[taskIndex].description = inputElement.value.trim();
+    inputElement.style.display = 'none';
+    descriptionSpan.textContent = tasks[taskIndex].description;
+    descriptionSpan.style.display = 'inline-block';
+    editIcon.style.display = 'inline-block';
+
+    renderTasks();
+  }
 }
 
 // Event listener for the add button
@@ -119,6 +150,6 @@ addButton.addEventListener('click', () => {
 });
 
 // Event listener for the clear completed button
-clearCompletedButton.addEventListener('click', clearCompletedTasks);
+// clearCompletedButton.addEventListener('click', clearCompletedTasks);
 // Initial rendering of the tasks
 renderTasks();

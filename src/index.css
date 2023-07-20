@@ -1,5 +1,6 @@
 body {
   font-family: Arial, sans-serif;
+  background-color: bisque;
 }
 
 .container {
@@ -48,3 +49,9 @@ li.completed span {
   border-bottom: 1px solid #000;
   width: 100%;
 }
+
+.edit-icon {
+  margin-right: 8px;
+  cursor: pointer;
+}
+
