@@ -85,5 +85,21 @@ function removeTask(index) {
     renderTasks();
   }
 }
-// Initial rendering of the tasks
+
+// Function to clear all completed tasks
+function clearCompletedTasks() {
+  // Create a new array with only the uncompleted tasks
+  const uncompletedTasks = tasks.filter((task) => !task.completed);
+
+  // Update the tasks array with uncompletedTasks
+  tasks = uncompletedTasks;
+
+  // Reassign the index values based on the new array's order
+  tasks.forEach((task, index) => {
+    task.index = index + 1;
+  });
+
+  renderTasks();
+}
+
 renderTasks();
