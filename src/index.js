@@ -77,5 +77,13 @@ function addTask(description) {
   renderTasks();
 }
 
+// Function to remove a task
+function removeTask(index) {
+  const taskIndex = tasks.findIndex((task) => task.index === index);
+  if (taskIndex !== -1) {
+    tasks.splice(taskIndex, 1);
+    renderTasks();
+  }
+}
 // Initial rendering of the tasks
 renderTasks();
