@@ -101,7 +101,7 @@ li.completed span.description {
   display: flex;
   justify-content: flex-end;
   cursor: pointer;
-  color:rgba(9, 255, 0, 0.712);
+  color: rgba(9, 255, 0, 0.712);
   font-size: 1.5rem;
 }
 
