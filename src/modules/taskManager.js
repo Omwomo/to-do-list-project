@@ -33,8 +33,8 @@ export default class TaskManager {
       descriptionSpan.textContent = task.description;
 
       const editIcon = document.createElement('span');
-      editIcon.classList.add('edit-icon');
-      editIcon.textContent = '✏️';
+      editIcon.classList.add('icon-edit');
+      // editIcon.textContent = '✏️';
       editIcon.addEventListener('click', () => this.editTask(task.index));
 
       const inputElement = document.createElement('input');
@@ -44,8 +44,8 @@ export default class TaskManager {
       inputElement.addEventListener('blur', () => this.saveChanges(task.index));
 
       const removeButton = document.createElement('span');
-      removeButton.innerHTML = '🗑️';
-      removeButton.classList.add('remove-btn');
+      // removeButton.innerHTML = '🗑️';
+      removeButton.classList.add('icon-trash');
       removeButton.addEventListener('click', () => this.removeTask(task.index));
 
       listItem.appendChild(checkboxContainer);
@@ -95,7 +95,7 @@ export default class TaskManager {
     if (taskIndex !== -1) {
       const listItem = document.getElementById(`taskList-${index}`);
       const descriptionSpan = listItem.querySelector('.description');
-      const editIcon = listItem.querySelector('.edit-icon');
+      const editIcon = listItem.querySelector('.icon-edit');
       const inputElement = listItem.querySelector('.edit-input');
 
       // Show the input element and set its value to the task description
@@ -124,7 +124,7 @@ export default class TaskManager {
     if (taskIndex !== -1) {
       const listItem = document.getElementById(`taskList-${index}`);
       const descriptionSpan = listItem.querySelector('.description');
-      const editIcon = listItem.querySelector('.edit-icon');
+      const editIcon = listItem.querySelector('.icon-edit');
       const inputElement = listItem.querySelector('.edit-input');
 
       const newDescription = inputElement.value.trim();
@@ -139,5 +139,23 @@ export default class TaskManager {
 
       this.updateTasksList();
     }
+  }
+
+  clearCompletedTasks() {
+    // Create a new array with only the uncompleted tasks
+    const uncompletedTasks = this.tasks.filter((task) => !task.completed);
+
+    // Update the tasks array with uncompletedTasks
+    this.tasks = uncompletedTasks;
+
+    // Reassign the index values based on the new array's order
+    this.tasks.forEach((task, index) => {
+      task.index = index + 1;
+    });
+
+    // Store the updated tasks in local storage
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+
+    this.renderTasks();
   }
 }

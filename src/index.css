@@ -1,20 +1,29 @@
 body {
   font-family: monospace;
   background-color: rgb(162, 199, 224);
+  font-size: 1.1rem;
+}
+
+.header {
+  overflow: visible;
+  display: flex;
+  flex-direction: row;
 }
 
 .container {
   max-width: 20rem;
-  margin: 0 auto;
+  margin-top: 3rem;
   padding: 20px;
   border: 1px solid #ccc;
   background-color: rgb(67, 68, 165);
   border-radius: 3rem;
+  box-shadow: inset 0 0 12px #d8d8d8, 0 0 12px #d8d8d8;
 }
 
 ul {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
 li {
@@ -29,6 +38,7 @@ li {
   color: #bbb;
   line-height: 1.5rem;
   font-size: 1.1rem;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
 }
 
 input[type="checkbox"] {
@@ -37,13 +47,30 @@ input[type="checkbox"] {
 
 .footer {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   padding-top: 10px;
+}
+
+#clearCompletedButton {
+  width: 10rem;
+  height: 2rem;
+  background-color: #af0303;
+  text-align: center;
+  align-self: center;
+  padding-top: 0.8rem;
+  border-radius: 3rem;
+  white-space: nowrap;
+  box-shadow: 3px 5px rgba(0, 0, 0, 0.7);
+  font-size: 1.2rem;
+  color: #fff;
+  padding-right: 1rem;
+  padding-left: 1rem;
 }
 
 span.description {
   width: 70%;
   overflow-wrap: break-word;
+  margin-left: 0.5rem;
 }
 
 li.completed span.description {
@@ -52,25 +79,69 @@ li.completed span.description {
   color: #bbb;
 }
 
-.remove-btn {
-  color: #128465;
+.icon-trash {
+  color: #af0303;
+  cursor: pointer;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  font-size: 1.5rem;
 }
 
 .edit-input {
   border: none;
   outline: none;
-  font-size: 1.5rem;
   padding: 2px;
-  margin: 0;
+  margin-left: 0.8rem;
   background-color: transparent;
   border-bottom: 1px solid #000;
   width: 100%;
 }
 
-.edit-icon {
+.icon-edit {
   display: flex;
   justify-content: flex-end;
   cursor: pointer;
+  color:rgba(9, 255, 0, 0.712);
+  font-size: 1.5rem;
+}
+
+.icon-plus {
+  font-size: 3rem;
+  color: rgb(28, 29, 107);
+  overflow: visible;
+  justify-self: center;
+  align-self: center;
+  margin-right: -0.2rem;
+}
+
+.addArea {
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  background-color: rgb(67, 68, 165);
+  border: 1px solid #fff;
+  margin-top: -2rem;
+  margin-right: -2rem;
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#newTaskInput {
+  border-bottom: 2px solid #000;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  background-color: rgb(67, 68, 165);
+  color: #fff;
+  font-size: 1.1rem;
+  width: 80%;
+  height: 2rem;
+}
+
+#newTaskInput:focus {
+  outline: none;
 }
 
 /* Hide the default checkbox */
@@ -84,6 +155,7 @@ li.completed span.description {
   position: relative;
   width: 20px;
   height: 20px;
+  margin: 0.5rem;
 }
 
 /* Create a custom checkbox appearance using a pseudo-element */
@@ -94,8 +166,8 @@ li.completed span.description {
   left: 0;
   width: 20px;
   height: 20px;
-  border-radius: 50%;
-  border: 2px solid #ff00;
+  border-radius: 4px; /* Rounded corners to mimic a checkbox */
+  border: 2px solid rgba(0, 255, 255, 0.712);
   background-color: rgb(28, 29, 107);
 }
 
@@ -104,12 +176,12 @@ li.completed span.description {
   background-color: #ff00;
 }
 
-/* Hide the default checkmark */
-.checkbox:checked + .checkbox-container::after {
-  content: "";
+/* Display the checkmark using the ::after pseudo-element */
+.checkbox:checked + .checkbox-container::before::after {
+  content: ''; /* Add this line to clear any default content */
   position: absolute;
   top: 5px;
-  left: 3px;
+  left: 6px;
   width: 5px;
   height: 10px;
   border: solid #fff; /* Match the background color of the checkbox */
