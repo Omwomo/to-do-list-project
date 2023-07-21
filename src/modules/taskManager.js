@@ -15,6 +15,11 @@ export default class TaskManager {
       listItem.id = `taskList-${task.index}`;
       listItem.classList.toggle('completed', task.completed);
 
+      // Create a custom checkbox container
+      const checkboxContainer = document.createElement('label');
+      checkboxContainer.classList.add('custom-checkbox');
+
+      // Create the checkbox input element
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
       checkbox.checked = task.completed;
@@ -24,9 +29,13 @@ export default class TaskManager {
         this.updateTasksList();
       });
 
-      const checkboxContainer = document.createElement('span');
-      checkboxContainer.classList.add('checkbox-container');
+      // Create the custom checkmark span element
+      const checkmark = document.createElement('span');
+      checkmark.classList.add('checkmark');
+
+      // Append the checkbox and checkmark to the custom checkbox container
       checkboxContainer.appendChild(checkbox);
+      checkboxContainer.appendChild(checkmark);
 
       const descriptionSpan = document.createElement('span');
       descriptionSpan.classList.add('description');
