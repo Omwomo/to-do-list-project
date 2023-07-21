@@ -15,6 +15,11 @@ export default class TaskManager {
       listItem.id = `taskList-${task.index}`;
       listItem.classList.toggle('completed', task.completed);
 
+      // Create a custom checkbox container
+      const checkboxContainer = document.createElement('label');
+      checkboxContainer.classList.add('custom-checkbox');
+
+      // Create the checkbox input element
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
       checkbox.checked = task.completed;
@@ -24,17 +29,21 @@ export default class TaskManager {
         this.updateTasksList();
       });
 
-      const checkboxContainer = document.createElement('span');
-      checkboxContainer.classList.add('checkbox-container');
+      // Create the custom checkmark span element
+      const checkmark = document.createElement('span');
+      checkmark.classList.add('checkmark');
+
+      // Append the checkbox and checkmark to the custom checkbox container
       checkboxContainer.appendChild(checkbox);
+      checkboxContainer.appendChild(checkmark);
 
       const descriptionSpan = document.createElement('span');
       descriptionSpan.classList.add('description');
       descriptionSpan.textContent = task.description;
 
       const editIcon = document.createElement('span');
-      editIcon.classList.add('edit-icon');
-      editIcon.textContent = '✏️';
+      editIcon.classList.add('icon-edit');
+      // editIcon.textContent = '✏️';
       editIcon.addEventListener('click', () => this.editTask(task.index));
 
       const inputElement = document.createElement('input');
@@ -44,8 +53,8 @@ export default class TaskManager {
       inputElement.addEventListener('blur', () => this.saveChanges(task.index));
 
       const removeButton = document.createElement('span');
-      removeButton.innerHTML = '🗑️';
-      removeButton.classList.add('remove-btn');
+      // removeButton.innerHTML = '🗑️';
+      removeButton.classList.add('icon-trash');
       removeButton.addEventListener('click', () => this.removeTask(task.index));
 
       listItem.appendChild(checkboxContainer);
@@ -95,7 +104,7 @@ export default class TaskManager {
     if (taskIndex !== -1) {
       const listItem = document.getElementById(`taskList-${index}`);
       const descriptionSpan = listItem.querySelector('.description');
-      const editIcon = listItem.querySelector('.edit-icon');
+      const editIcon = listItem.querySelector('.icon-edit');
       const inputElement = listItem.querySelector('.edit-input');
 
       // Show the input element and set its value to the task description
@@ -124,7 +133,7 @@ export default class TaskManager {
     if (taskIndex !== -1) {
       const listItem = document.getElementById(`taskList-${index}`);
       const descriptionSpan = listItem.querySelector('.description');
-      const editIcon = listItem.querySelector('.edit-icon');
+      const editIcon = listItem.querySelector('.icon-edit');
       const inputElement = listItem.querySelector('.edit-input');
 
       const newDescription = inputElement.value.trim();
@@ -139,5 +148,23 @@ export default class TaskManager {
 
       this.updateTasksList();
     }
+  }
+
+  clearCompletedTasks() {
+    // Create a new array with only the uncompleted tasks
+    const uncompletedTasks = this.tasks.filter((task) => !task.completed);
+
+    // Update the tasks array with uncompletedTasks
+    this.tasks = uncompletedTasks;
+
+    // Reassign the index values based on the new array's order
+    this.tasks.forEach((task, index) => {
+      task.index = index + 1;
+    });
+
+    // Store the updated tasks in local storage
+    localStorage.setItem('tasks', JSON.stringify(this.tasks));
+
+    this.renderTasks();
   }
 }
