@@ -1,0 +1,118 @@
+body {
+  font-family: monospace;
+  background-color: rgb(162, 199, 224);
+}
+
+.container {
+  max-width: 20rem;
+  margin: 0 auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: rgb(67, 68, 165);
+  border-radius: 3rem;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border: 1px solid #000;
+  margin-bottom: 1rem;
+  border-radius: 3rem;
+  background-color: rgb(28, 29, 107);
+  color: #bbb;
+  line-height: 1.5rem;
+  font-size: 1.1rem;
+}
+
+input[type="checkbox"] {
+  margin-right: 3px;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 10px;
+}
+
+span.description {
+  width: 70%;
+  overflow-wrap: break-word;
+}
+
+li.completed span.description {
+  text-decoration: line-through;
+  font-style: italic;
+  color: #bbb;
+}
+
+.remove-btn {
+  color: #128465;
+}
+
+.edit-input {
+  border: none;
+  outline: none;
+  font-size: 1.5rem;
+  padding: 2px;
+  margin: 0;
+  background-color: transparent;
+  border-bottom: 1px solid #000;
+  width: 100%;
+}
+
+.edit-icon {
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+}
+
+/* Hide the default checkbox */
+.checkbox {
+  position: absolute;
+  opacity: 0;
+}
+
+/* Style the custom checkbox */
+.checkbox-container {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+/* Create a custom checkbox appearance using a pseudo-element */
+.checkbox-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid #ff00;
+  background-color: rgb(28, 29, 107);
+}
+
+/* Show the checkmark when the checkbox is checked */
+.checkbox:checked + .checkbox-container::before {
+  background-color: #ff00;
+}
+
+/* Hide the default checkmark */
+.checkbox:checked + .checkbox-container::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 3px;
+  width: 5px;
+  height: 10px;
+  border: solid #fff; /* Match the background color of the checkbox */
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
