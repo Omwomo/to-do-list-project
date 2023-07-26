@@ -1,25 +1,25 @@
+// TaskManager.js
+import Task from './Task';
+
 export default class TaskManager {
   constructor() {
     this.tasks = JSON.parse(localStorage.getItem('tasks')) || [];
     this.taskList = document.getElementById('taskList');
   }
 
-  // Function to render the tasks list
   renderTasks() {
     this.taskList.innerHTML = '';
 
-    this.tasks.sort((a, b) => a.index - b.index); // Sort tasks by index
+    this.tasks.sort((a, b) => a.index - b.index);
 
     this.tasks.forEach((task) => {
       const listItem = document.createElement('li');
       listItem.id = `taskList-${task.index}`;
       listItem.classList.toggle('completed', task.completed);
 
-      // Create a custom checkbox container
       const checkboxContainer = document.createElement('label');
       checkboxContainer.classList.add('custom-checkbox');
 
-      // Create the checkbox input element
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
       checkbox.checked = task.completed;
@@ -29,11 +29,9 @@ export default class TaskManager {
         this.updateTasksList();
       });
 
-      // Create the custom checkmark span element
       const checkmark = document.createElement('span');
       checkmark.classList.add('checkmark');
 
-      // Append the checkbox and checkmark to the custom checkbox container
       checkboxContainer.appendChild(checkbox);
       checkboxContainer.appendChild(checkmark);
 
@@ -43,7 +41,6 @@ export default class TaskManager {
 
       const editIcon = document.createElement('span');
       editIcon.classList.add('icon-edit');
-      // editIcon.textContent = '✏️';
       editIcon.addEventListener('click', () => this.editTask(task.index));
 
       const inputElement = document.createElement('input');
@@ -53,7 +50,6 @@ export default class TaskManager {
       inputElement.addEventListener('blur', () => this.saveChanges(task.index));
 
       const removeButton = document.createElement('span');
-      // removeButton.innerHTML = '🗑️';
       removeButton.classList.add('icon-trash');
       removeButton.addEventListener('click', () => this.removeTask(task.index));
 
@@ -65,31 +61,26 @@ export default class TaskManager {
       this.taskList.appendChild(listItem);
     });
 
-    // Store tasks in local storage
     localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 
-  // Function to add a new task
   addTask(description) {
     const index = this.tasks.length > 0 ? this.tasks[this.tasks.length - 1].index + 1 : 1;
-    this.tasks.push({ description, completed: false, index });
+    this.tasks.push(new Task(description, false, index));
     this.updateTasksList();
   }
 
-  // Function to update the task list and render the tasks
   updateTasksList() {
     this.updateTaskIndexes();
     this.renderTasks();
   }
 
-  // Function for updating the indexes.
   updateTaskIndexes() {
     this.tasks.forEach((task, index) => {
       task.index = index + 1;
     });
   }
 
-  // Function to remove a task
   removeTask(index) {
     const taskIndex = this.tasks.findIndex((task) => task.index === index);
     if (taskIndex !== -1) {
@@ -98,7 +89,6 @@ export default class TaskManager {
     }
   }
 
-  // Function to edit a task
   editTask(index) {
     const taskIndex = this.tasks.findIndex((task) => task.index === index);
     if (taskIndex !== -1) {
@@ -107,16 +97,13 @@ export default class TaskManager {
       const editIcon = listItem.querySelector('.icon-edit');
       const inputElement = listItem.querySelector('.edit-input');
 
-      // Show the input element and set its value to the task description
       inputElement.style.display = 'inline-block';
       inputElement.value = this.tasks[taskIndex].description;
       inputElement.focus();
 
-      // Hide the description span and edit icon during editing
       descriptionSpan.style.display = 'none';
       editIcon.style.display = 'none';
 
-      // Save changes when the input loses focus
       inputElement.addEventListener('blur', () => this.saveChanges(index));
 
       inputElement.addEventListener('keypress', (event) => {
@@ -127,7 +114,6 @@ export default class TaskManager {
     }
   }
 
-  // Helper function: Save changes when editing a task
   saveChanges(index) {
     const taskIndex = this.tasks.findIndex((task) => task.index === index);
     if (taskIndex !== -1) {
@@ -151,18 +137,11 @@ export default class TaskManager {
   }
 
   clearCompletedTasks() {
-    // Create a new array with only the uncompleted tasks
     const uncompletedTasks = this.tasks.filter((task) => !task.completed);
-
-    // Update the tasks array with uncompletedTasks
     this.tasks = uncompletedTasks;
 
-    // Reassign the index values based on the new array's order
-    this.tasks.forEach((task, index) => {
-      task.index = index + 1;
-    });
+    this.updateTaskIndexes();
 
-    // Store the updated tasks in local storage
     localStorage.setItem('tasks', JSON.stringify(this.tasks));
 
     this.renderTasks();
